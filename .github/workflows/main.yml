@@ -1,0 +1,25 @@
+name: NPM Publish
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⏬ checkout
+        uses: actions/checkout@v2.2.0
+      - name: 📦 Node
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org
+      - name: install
+        run: yarn install
+      - name: build
+        run: yarn build
+      - name: 🚀 Publish
+        run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
