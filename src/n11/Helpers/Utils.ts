@@ -35,4 +35,17 @@ enum ApprovalStatus {
   REJECTED = 6,
 }
 
-export { ResultStatus, ProductCondition, ProductDiscountType, CurrencyType, SaleStatus, ApprovalStatus };
+enum DeliveryFeeType {
+  N11_PAYS = 1,
+  BUYER_PAYS = 2,
+  STORE_PAYS = 3,
+  CONDITIONAL_DELIVERY_BUYER_PAYS = 4,
+  CONDITIONAL_DELIVERY_VENDOR_PAYS = 5,
+}
+
+enum ShipmentMethod {
+  CARGO = 1,
+  OTHER = 2,
+}
+
+export { ResultStatus, ProductCondition, ProductDiscountType, CurrencyType, SaleStatus, ApprovalStatus, DeliveryFeeType, ShipmentMethod };
