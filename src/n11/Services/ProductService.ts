@@ -19,25 +19,25 @@ class ProductService extends SoapBase {
     this.SERVICE_URL = "https://api.n11.com/ws/ProductService.wsdl";
   }
 
-  public async saveProduct(product: IProduct): Promise<[ISaveProductResponse, string, any, string]> {
+  public saveProduct(product: IProduct): Promise<[ISaveProductResponse, string, any, string]> {
     const request: ISaveProductRequest = {
       auth: this.getAuth(),
       product,
     };
-    return await this._.SaveProductAsync(request);
+    return this._.SaveProductAsync(request);
   }
 
-  public async getProductList(pagingData: IPagingData = null): Promise<[IGetProductListResponse, string, any, string]> {
+  public getProductList(pagingData: IPagingData = null): Promise<[IGetProductListResponse, string, any, string]> {
     const request: IGetProductListRequest = {
       auth: this.getAuth(),
     };
     if (pagingData !== null) {
       request.pagingData = pagingData;
     }
-    return await this._.GetProductListAsync(request);
+    return this._.GetProductListAsync(request);
   }
 
-  public async updateProductPriceBySellerCode(
+  public updateProductPriceBySellerCode(
     productSellerCode: string,
     price: number,
     currencyType?: CurrencyType,
@@ -56,7 +56,7 @@ class ProductService extends SoapBase {
     if (product) {
       request.product = product;
     }
-    return await this._.UpdateProductPriceBySellerCodeAsync(request);
+    return this._.UpdateProductPriceBySellerCodeAsync(request);
   }
 }
 

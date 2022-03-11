@@ -16,14 +16,14 @@ class CategoryService extends SoapBase {
     this.SERVICE_URL = "https://api.n11.com/ws/CategoryService.wsdl";
   }
 
-  public async getTopLevelCategories(): Promise<[IGetTopLevelCategoriesResponse, string, any, string]> {
+  public getTopLevelCategories(): Promise<[IGetTopLevelCategoriesResponse, string, any, string]> {
     const request: IGetTopLevelCategoriesRequest = {
       auth: this.getAuth(),
     };
-    return await this._.GetTopLevelCategoriesAsync(request);
+    return this._.GetTopLevelCategoriesAsync(request);
   }
 
-  public async getCategoryAttributes(categoryId: number, pagingData: IPagingData = null): Promise<[IGetCategoryAttributesResponse, string, any, string]> {
+  public getCategoryAttributes(categoryId: number, pagingData: IPagingData = null): Promise<[IGetCategoryAttributesResponse, string, any, string]> {
     const request: IGetCategoryAttributesRequest = {
       categoryId,
       auth: this.getAuth(),
@@ -31,15 +31,15 @@ class CategoryService extends SoapBase {
     if (pagingData !== null) {
       request.pagingData = pagingData;
     }
-    return await this._.GetCategoryAttributesAsync(request);
+    return this._.GetCategoryAttributesAsync(request);
   }
 
-  public async getSubCategories(categoryId: number): Promise<[IGetSubCategoriesResponse, string, any, string]> {
+  public getSubCategories(categoryId: number): Promise<[IGetSubCategoriesResponse, string, any, string]> {
     const request: IGetSubCategoriesRequest = {
       auth: this.getAuth(),
       categoryId,
     };
-    return await this._.GetSubCategoriesAsync(request);
+    return this._.GetSubCategoriesAsync(request);
   }
 }
 

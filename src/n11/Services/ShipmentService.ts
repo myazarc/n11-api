@@ -7,11 +7,11 @@ class ShipmentService extends SoapBase {
     this.SERVICE_URL = "https://api.n11.com/ws/ShipmentService.wsdl";
   }
 
-  public async getShipmentTemplateList(): Promise<[IGetShipmentTemplateListResponse, string, any, string]> {
+  public getShipmentTemplateList(): Promise<[IGetShipmentTemplateListResponse, string, any, string]> {
     const request: IGetShipmentTemplateListRequest = {
       auth: this.getAuth(),
     };
-    return await this._.GetShipmentTemplateListAsync(request);
+    return this._.GetShipmentTemplateListAsync(request);
   }
 }
 
