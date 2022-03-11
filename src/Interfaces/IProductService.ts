@@ -125,4 +125,40 @@ interface IGetProductListResponse extends IMainResponse {
 }
 //#endregion
 
-export { ISaveProductRequest, ISaveProductResponse, IProduct, IGetProductListRequest, IGetProductListResponse };
+//#region GetProductList
+
+interface IUpdateProductPriceStockItem {
+  sellerStockCode: string;
+  optionPrice: number;
+}
+
+interface IUpdateProductPriceStockItems {
+  stockItem: IUpdateProductPriceStockItem[];
+}
+
+interface IUpdateProductPrice {
+  stockItems: IUpdateProductPriceStockItems;
+}
+
+interface IUpdateProductPriceBySellerCodeRequest extends IMainRequest {
+  productSellerCode: string;
+  price: number;
+  currencyType?: CurrencyType;
+  product?: IUpdateProductPrice;
+}
+
+interface IUpdateProductPriceBySellerCodeResponse extends IMainResponse {
+  products: IProducts;
+}
+//#endregion
+
+export {
+  ISaveProductRequest,
+  ISaveProductResponse,
+  IProduct,
+  IGetProductListRequest,
+  IGetProductListResponse,
+  IUpdateProductPriceBySellerCodeRequest,
+  IUpdateProductPriceBySellerCodeResponse,
+  IUpdateProductPrice,
+};
