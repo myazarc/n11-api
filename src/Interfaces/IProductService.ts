@@ -161,4 +161,5 @@ export {
   IUpdateProductPriceBySellerCodeRequest,
   IUpdateProductPriceBySellerCodeResponse,
   IUpdateProductPrice,
+  IProducts,
 };
