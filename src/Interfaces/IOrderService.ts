@@ -120,8 +120,8 @@ enum PaymentType {
 }
 
 interface IOrderListResponse extends IMainResponse {
-  paymentType: PaymentType;
   orderList: IOrderList;
+  pagingData?: IPagingData;
 }
 
 //#endregion
@@ -133,7 +133,6 @@ interface IDetailedOrderListRequest extends IMainRequest {
 }
 
 interface IDetailedOrderListResponse extends IMainResponse {
-  paymentType: PaymentType;
   orderList: IOrderList;
   pagingData?: IPagingData;
   deliveryFeeType?: DeliveryFeeType;
@@ -319,4 +318,5 @@ export {
   IOrderItemAcceptResponse,
   IOrderItemRejectRequest,
   IOrderItemRejectResponse,
+  ISearchData,
 };

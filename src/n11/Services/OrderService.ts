@@ -10,8 +10,10 @@ import {
   IOrderItemAcceptRequest,
   IOrderItemRejectResponse,
   IOrderItemRejectRequest,
+  ISearchData,
 } from "../../Interfaces/IOrderService";
 import { RejectReasonType } from "../Helpers/Utils";
+import { IPagingData } from "../../Interfaces/IUtils";
 
 class OrderService extends SoapBase {
   constructor(appKey: string, appSecret: string) {
@@ -19,15 +21,32 @@ class OrderService extends SoapBase {
     this.SERVICE_URL = "https://api.n11.com/ws/OrderService.wsdl";
   }
 
-  public orderList(request: IOrderListRequest): Promise<[IOrderListResponse, string, any, string]> {
-    request.auth = this.getAuth();
+  public orderList(searchData: ISearchData = null, paggingData: IPagingData = null): Promise<[IOrderListResponse, string, any, string]> {
+    const request: IOrderListRequest = {
+      auth: this.getAuth(),
+    };
+    if (searchData) {
+      request.searchData = searchData;
+    }
+
+    if (paggingData) {
+      request.pagingData = paggingData;
+    }
 
     return this._.OrderListAsync(request);
   }
 
-  public detailedOrderList(request: IDetailedOrderListRequest): Promise<[IDetailedOrderListResponse, string, any, string]> {
-    request.auth = this.getAuth();
+  public detailedOrderList(searchData: ISearchData = null, paggingData: IPagingData = null): Promise<[IDetailedOrderListResponse, string, any, string]> {
+    const request: IDetailedOrderListRequest = {
+      auth: this.getAuth(),
+    };
+    if (searchData) {
+      request.searchData = searchData;
+    }
 
+    if (paggingData) {
+      request.pagingData = paggingData;
+    }
     return this._.DetailedOrderListAsync(request);
   }
 
