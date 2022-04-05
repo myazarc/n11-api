@@ -1,5 +1,5 @@
 import SoapBase from "../Base";
-import { IOrderListRequest, IOrderListResponse } from "../../Interfaces/IOrderService";
+import { IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderListRequest, IOrderListResponse } from "../../Interfaces/IOrderService";
 
 class OrderService extends SoapBase {
   constructor(appKey: string, appSecret: string) {
@@ -10,7 +10,13 @@ class OrderService extends SoapBase {
   public orderList(request: IOrderListRequest): Promise<[IOrderListResponse, string, any, string]> {
     request.auth = this.getAuth();
 
-    return this._.StopSellingProductBySellerCodeAsync(request);
+    return this._.OrderListAsync(request);
+  }
+
+  public detailedOrderList(request: IDetailedOrderListRequest): Promise<[IDetailedOrderListResponse, string, any, string]> {
+    request.auth = this.getAuth();
+
+    return this._.DetailedOrderListAsync(request);
   }
 }
 
