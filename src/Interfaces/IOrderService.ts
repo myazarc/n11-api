@@ -1,3 +1,4 @@
+import { ShipmentMethod, DeliveryFeeType } from "../n11/Helpers/Utils";
 import { IMainRequest, IMainResponse, IPagingData } from "./IUtils";
 
 enum OrderStatus {
@@ -27,12 +28,44 @@ interface ISearchData {
   sortForUpdateDate?: boolean;
 }
 
-interface IOrderList {}
+interface IShipmentCompany {
+  id: string;
+  name: string;
+}
+interface IShipmentInfo {
+  shipmentCompany: IShipmentCompany;
+  shipmentMethod: ShipmentMethod;
+}
 
-//#region OrderList
-interface IOrderListRequest extends IMainRequest {
-  searchData?: ISearchData;
-  pagingData?: IPagingData;
+enum OrderItemStatus {
+  PRODUCT = "1", //: Ürün Sipariş Kalemi
+  SERVICE = "2", //: Servis Sipariş Kalemi
+  GSM = "3", //: Gsm Sipariş Kalemi
+  GEZI = "4", //: Gezi Sipariş Kalemi
+}
+
+interface IOrderItem {
+  commission: number;
+  dueAmount: number;
+  id: number;
+  installmentChargeWithVAT: number;
+  mallDiscount: number;
+  price: number;
+  productId: string;
+  productName: string;
+  productSellerCode: string;
+  quantity: number;
+  sellerCouponDiscount: number;
+  sellerDiscount: number;
+  sellerInvoiceAmount: number;
+  shipmentInfo: IShipmentInfo;
+  shipmentDate: string;
+  status: OrderItemStatus;
+  totalMallDiscountPrice: number;
+  version: string;
+}
+interface IOrderItemList {
+  orderItem: IOrderItem[];
 }
 
 interface IOrder {
@@ -41,10 +74,22 @@ interface IOrder {
   id: number;
   orderNumber: string;
   status: OrderStatus;
+
+  totalAmount?: number;
+  totalDiscountAmount?: number;
+  orderItemList?: IOrderItemList;
+  deliveryFeeType?: DeliveryFeeType;
+  paymentType?: PaymentType;
 }
 
 interface IOrderList {
   order: IOrder[];
+}
+
+//#region OrderList
+interface IOrderListRequest extends IMainRequest {
+  searchData?: ISearchData;
+  pagingData?: IPagingData;
 }
 
 enum PaymentType {
@@ -71,4 +116,19 @@ interface IOrderListResponse extends IMainResponse {
 
 //#endregion
 
-export { IOrderListRequest, IOrderListResponse };
+//#region DetailedOrderList
+interface IDetailedOrderListRequest extends IMainRequest {
+  searchData?: ISearchData;
+  pagingData?: IPagingData;
+}
+
+interface IDetailedOrderListResponse extends IMainResponse {
+  paymentType: PaymentType;
+  orderList: IOrderList;
+  pagingData?: IPagingData;
+  deliveryFeeType?: DeliveryFeeType;
+}
+
+//#endregion
+
+export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse };
