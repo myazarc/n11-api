@@ -31,10 +31,20 @@ interface ISearchData {
 interface IShipmentCompany {
   id: string;
   name: string;
+  shortName?: string;
 }
+
+enum CampaignNumberStatus {
+  USED = "1",
+  UNUSED = "2",
+}
+
 interface IShipmentInfo {
   shipmentCompany: IShipmentCompany;
   shipmentMethod: ShipmentMethod;
+
+  campaignNumberStatus?: CampaignNumberStatus;
+  shipmentCode?: string;
 }
 
 enum OrderItemStatus {
@@ -64,7 +74,7 @@ interface IOrderItem {
   totalMallDiscountPrice: number;
   version: string;
 }
-interface IOrderItemList {
+interface ServiceItem {
   orderItem: IOrderItem[];
 }
 
@@ -77,7 +87,7 @@ interface IOrder {
 
   totalAmount?: number;
   totalDiscountAmount?: number;
-  orderItemList?: IOrderItemList;
+  orderItemList?: ServiceItem;
   deliveryFeeType?: DeliveryFeeType;
   paymentType?: PaymentType;
 }
@@ -131,4 +141,130 @@ interface IDetailedOrderListResponse extends IMainResponse {
 
 //#endregion
 
-export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse };
+//#region OrderDetail
+interface IOrderRequest {
+  id: string | number;
+}
+interface IOrderDetailRequest extends IMainRequest {
+  orderRequest: IOrderRequest;
+}
+
+interface IBillingAddress {
+  address: string;
+  city: string;
+  district: string;
+  fullName: string;
+  gsm: string;
+  neighborhood: string;
+  postalCode: string;
+  taxId: string;
+  taxOffice: string;
+  tcId: string;
+}
+
+interface IBillingTemplate {
+  dueAmount: number;
+  installmentChargeWithVat: number;
+  originalPrice: number;
+  sellerInvoiceAmount: number;
+  totalMallDiscountPrice: number;
+  totalSellerDiscount: number;
+  totalServiceItemOriginalPrice: number;
+}
+
+interface IBuyer {
+  fullName: string;
+  id: string | number;
+  taxId: string;
+  taxOffice: string;
+  tcId: string;
+  email: string;
+}
+
+enum InvoiceType {
+  PRIVATE = "1",
+  CORPORATE = "2",
+}
+
+interface IAttribute {
+  name: string;
+  value: string;
+}
+
+interface IAtttibutes {
+  attribute: IAttribute[];
+}
+
+interface IServiceItemOrderItemList {
+  id: string | number;
+}
+
+interface IServiceItem {
+  intallmentChargeWithVAT: number;
+  orderItemList: IServiceItemOrderItemList;
+  orderItemType: OrderItemStatus;
+  price: number;
+  quantity: number;
+  sellerInvoiceAmount: number;
+  totalDiscountPrice: number;
+}
+
+interface IItem {
+  approveDate: string;
+  attributes: IAtttibutes;
+  commission: number;
+  customTextOptionsValues: string;
+  sellerInvoiceAmount: number;
+  deliveryFeeType: DeliveryFeeType;
+  dueAmount: number;
+  id: string | number;
+  installmentChargeWithVAT: number;
+  mallDiscount: number;
+  price: number;
+  productName: string;
+  productSellerCode: string;
+  quantity: number;
+  sellerCouponDiscount: number;
+  sellerDiscount: number;
+  shipmentInfo: IShipmentInfo;
+  shipmentDate: string;
+  status: OrderItemStatus;
+  totalMallDiscountPrice: number;
+  version: string;
+  serviceItem: IServiceItem;
+}
+
+interface IItemList {
+  item: IItem[];
+}
+
+interface IShippingAddress {
+  address: string;
+  city: string;
+  district: string;
+  fullName: string;
+  gsm: string;
+  neighborhood: string;
+  postalCode: string | number;
+}
+
+interface IOrderDetail {
+  citizenshipId: string;
+  createDate: string;
+  id: string | number;
+  orderNumber: string;
+  billingAddress: IBillingAddress;
+  billingTemplate: IBillingTemplate;
+  buyer: IBuyer;
+  invoiceType: InvoiceType;
+  itemList: IItemList;
+  shippingAddress: IShippingAddress;
+}
+interface IOrderDetailResponse extends IMainResponse {
+  paymentType: PaymentType;
+  orderDetail: IOrderDetail;
+}
+
+//#endregion
+
+export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderDetailRequest, IOrderDetailResponse };
