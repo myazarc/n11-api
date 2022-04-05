@@ -1,5 +1,14 @@
 import SoapBase from "../Base";
-import { IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderListRequest, IOrderListResponse, IOrderDetailRequest, IOrderDetailResponse } from "../../Interfaces/IOrderService";
+import {
+  IDetailedOrderListRequest,
+  IDetailedOrderListResponse,
+  IOrderListRequest,
+  IOrderListResponse,
+  IOrderDetailRequest,
+  IOrderDetailResponse,
+  IOrderItemAcceptResponse,
+  IOrderItemAcceptRequest,
+} from "../../Interfaces/IOrderService";
 
 class OrderService extends SoapBase {
   constructor(appKey: string, appSecret: string) {
@@ -28,6 +37,21 @@ class OrderService extends SoapBase {
     };
 
     return this._.OrderDetailAsync(request);
+  }
+
+  public orderItemAccept(id: string | number, numberOfPackages: number | null): Promise<[IOrderItemAcceptResponse, string, any, string]> {
+    const request: IOrderItemAcceptRequest = {
+      auth: this.getAuth(),
+      orderItem: {
+        id,
+      },
+    };
+
+    if (numberOfPackages) {
+      request.numberOfPackages = numberOfPackages;
+    }
+
+    return this._.OrderItemAcceptAsync(request);
   }
 }
 

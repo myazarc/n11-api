@@ -267,4 +267,25 @@ interface IOrderDetailResponse extends IMainResponse {
 
 //#endregion
 
-export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderDetailRequest, IOrderDetailResponse };
+//#region OrderItemAccept
+
+interface IServiceOrderItem {
+  id: string | number;
+}
+
+interface IOrderItemAcceptRequest extends IMainRequest {
+  orderItem: IServiceOrderItem;
+  numberOfPackages?: number | null;
+}
+
+interface IOrderItemList {
+  orderItem: IOrderItem;
+}
+
+interface IOrderItemAcceptResponse extends IMainResponse {
+  orderItemList: IOrderItemList;
+}
+
+//#endregion
+
+export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderDetailRequest, IOrderDetailResponse, IOrderItemAcceptRequest, IOrderItemAcceptResponse };
