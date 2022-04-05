@@ -1,4 +1,4 @@
-import { ShipmentMethod, DeliveryFeeType } from "../n11/Helpers/Utils";
+import { ShipmentMethod, DeliveryFeeType, RejectReasonType } from "../n11/Helpers/Utils";
 import { IMainRequest, IMainResponse, IPagingData } from "./IUtils";
 
 enum OrderStatus {
@@ -288,4 +288,35 @@ interface IOrderItemAcceptResponse extends IMainResponse {
 
 //#endregion
 
-export { IOrderListRequest, IOrderListResponse, IDetailedOrderListRequest, IDetailedOrderListResponse, IOrderDetailRequest, IOrderDetailResponse, IOrderItemAcceptRequest, IOrderItemAcceptResponse };
+interface IServiceOrderItemList {
+  orderItem: IServiceOrderItem;
+}
+
+interface IOrderItemRejectRequest extends IMainRequest {
+  orderItemList: IServiceOrderItemList;
+  rejectReason: string;
+  rejectReasonType: RejectReasonType;
+}
+
+interface IOrderItemList {
+  orderItem: IOrderItem;
+}
+
+interface IOrderItemRejectResponse extends IMainResponse {
+  orderItemList: IOrderItemList;
+}
+
+//#endregion
+
+export {
+  IOrderListRequest,
+  IOrderListResponse,
+  IDetailedOrderListRequest,
+  IDetailedOrderListResponse,
+  IOrderDetailRequest,
+  IOrderDetailResponse,
+  IOrderItemAcceptRequest,
+  IOrderItemAcceptResponse,
+  IOrderItemRejectRequest,
+  IOrderItemRejectResponse,
+};

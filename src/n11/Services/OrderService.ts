@@ -8,7 +8,10 @@ import {
   IOrderDetailResponse,
   IOrderItemAcceptResponse,
   IOrderItemAcceptRequest,
+  IOrderItemRejectResponse,
+  IOrderItemRejectRequest,
 } from "../../Interfaces/IOrderService";
+import { RejectReasonType } from "../Helpers/Utils";
 
 class OrderService extends SoapBase {
   constructor(appKey: string, appSecret: string) {
@@ -52,6 +55,21 @@ class OrderService extends SoapBase {
     }
 
     return this._.OrderItemAcceptAsync(request);
+  }
+
+  public orderItemReject(id: string | number, rejectReasonType: RejectReasonType, rejectReason: string): Promise<[IOrderItemRejectResponse, string, any, string]> {
+    const request: IOrderItemRejectRequest = {
+      auth: this.getAuth(),
+      orderItemList: {
+        orderItem: {
+          id,
+        },
+      },
+      rejectReason,
+      rejectReasonType,
+    };
+
+    return this._.OrderItemRejectAsync(request);
   }
 }
 

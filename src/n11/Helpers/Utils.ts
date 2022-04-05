@@ -48,4 +48,9 @@ enum ShipmentMethod {
   OTHER = 2,
 }
 
-export { ResultStatus, ProductCondition, ProductDiscountType, CurrencyType, SaleStatus, ApprovalStatus, DeliveryFeeType, ShipmentMethod };
+enum RejectReasonType {
+  OUT_OF_STOCK = "OUT_OF_STOCK",
+  OTHER = "OTHER",
+}
+
+export { ResultStatus, ProductCondition, ProductDiscountType, CurrencyType, SaleStatus, ApprovalStatus, DeliveryFeeType, ShipmentMethod, RejectReasonType };
