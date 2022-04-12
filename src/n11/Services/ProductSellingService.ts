@@ -27,7 +27,7 @@ class ProductSellingService extends SoapBase {
       productSellerCode,
     };
 
-    return this._.StopSellingProductBySellerCodeAsync(request);
+    return this._.StartSellingProductBySellerCodeAsync(request);
   }
 }
 
