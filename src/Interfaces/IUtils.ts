@@ -2,10 +2,10 @@ import { ResultStatus } from "../n11/Helpers/Utils";
 import { IAuth } from "./IAuth";
 
 interface IResult {
-  status: string;
+  status: ResultStatus;
 }
 interface IMainResponse {
-  result: ResultStatus;
+  result: IResult;
 }
 
 interface IMainRequest {

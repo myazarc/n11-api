@@ -277,10 +277,6 @@ interface IOrderItemAcceptRequest extends IMainRequest {
   numberOfPackages?: number | null;
 }
 
-interface IOrderItemList {
-  orderItem: IOrderItem;
-}
-
 interface IOrderItemAcceptResponse extends IMainResponse {
   orderItemList: IOrderItemList;
 }
@@ -298,7 +294,7 @@ interface IOrderItemRejectRequest extends IMainRequest {
 }
 
 interface IOrderItemList {
-  orderItem: IOrderItem;
+  orderItem: IOrderItem | IOrderItem[];
 }
 
 interface IOrderItemRejectResponse extends IMainResponse {
